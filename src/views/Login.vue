@@ -10,7 +10,7 @@
         <el-input v-model="formData.username"></el-input>
       </el-form-item>
       <el-form-item label="密码">
-        <el-input v-model="formData.password"></el-input>
+        <el-input type="password" @keyup.enter.native="HandleLogin" v-model="formData.password"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button class="btn" type="primary" @click="HandleLogin" >登录</el-button>
@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 export default {
   data() {
     return {
@@ -33,15 +32,15 @@ export default {
   methods: {
     // 处理登录
     HandleLogin() {
-      axios
-        .post('http://localhost:8888/api/private/v1/login', this.formData)
+      this.$http
+        .post('login', this.formData)
         .then((response) => {
           var status = response.data.meta.status;
           var msg = response.data.meta.msg;
           if (status === 200) {
             this.$message.success(msg);
-            // 携带token
-            var token = response.data.meta.token;
+            // // 携带token
+            var token = response.data.data.token;
             sessionStorage.setItem('token', token);
             // 跳转到后台首页
             this.$router.push('/');
