@@ -80,15 +80,15 @@
       <!-- :page-sizes每页显示个数选择器的选项设置 -->
       <!-- page-size每页显示条目个数 -->
       <!-- total总条数 -->
+      <!-- :pager-count="11" -->
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :page-sizes="[2, 4, 6, 8]"
+      :page-sizes="[2, 1, 1, 1]"
       :page-size="pagesize"
-      :pager-count="9"
       :current-page="pagenum"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="11">
+      :total="count">
     </el-pagination>
   </el-card>
 </template>
@@ -101,7 +101,7 @@ export default {
       // 页码
       pagenum: 1,
       // 每页显示几条
-      pagesize: 3,
+      pagesize: 2,
       // 总条数
       count: 0
     };
@@ -115,8 +115,10 @@ export default {
       this.$http
         .get(`users?pagenum=${this.pagenum}&pagesize=${this.pagesize}`)
         .then((response) => {
+          // console.log(response.data);
+          // 获取总条数
+          this.count = response.data.data.total;
           this.data = response.data.data.users;
-          // console.log(response.data.data.users);
         })
         .catch((err) => {
           console.log(err);
@@ -124,7 +126,8 @@ export default {
     },
     // 每页显示多少条发生变化执行
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      this.pagesize = val;
+      this.loadData();
     },
     // 页数发生变化执行
     handleCurrentChange(val) {
