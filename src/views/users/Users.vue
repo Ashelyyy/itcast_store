@@ -10,10 +10,14 @@
     <!-- 文本输入框,因为要一行显示-->
     <el-row>
       <el-col :span="24">
-        <el-input placeholder="请输入内容" class="input-with-select textInput">
-          <el-button slot="append" icon="el-icon-search"></el-button>
+        <el-input v-model="searchTxt" clearable placeholder="请输入内容" class="textInput">
+          <el-button
+          slot="append"
+          icon="el-icon-search"
+          @click="handleSearch">
+          </el-button>
         </el-input>
-        <el-button type="success" plain>添加</el-button>
+        <el-button type="success" plain @click="AddUserDialogFormVisible=true">添加</el-button>
       </el-col>
     </el-row>
     <!-- 表格 -->
@@ -90,6 +94,30 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="count">
     </el-pagination>
+
+    <!-- 弹出对话框 -->
+    <el-dialog
+    :visible="AddUserDialogFormVisible"
+    title="添加用户">
+      <el-form :model="form">
+        <el-form-item label="用户名" label-width="80px">
+          <el-input v-model="form.username" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" label-width="80px">
+          <el-input v-model="form.password" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱" label-width="80px">
+          <el-input v-model="form.email" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="电话" label-width="80px">
+          <el-input v-model="form.mobile" auto-complete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button>取 消</el-button>
+        <el-button type="primary">确 定</el-button>
+      </div>
+    </el-dialog>
   </el-card>
 </template>
 
@@ -103,7 +131,18 @@ export default {
       // 每页显示几条
       pagesize: 2,
       // 总条数
-      count: 0
+      count: 0,
+      // 搜索框数据
+      searchTxt: '',
+      // 弹出框的默认是隐藏
+      AddUserDialogFormVisible: false,
+      // 弹出框表单数据绑定
+      form: {
+        username: '',
+        password: '',
+        eamil: '',
+        moblie: ''
+      }
     };
   },
   methods: {
@@ -113,7 +152,7 @@ export default {
       var token = sessionStorage.getItem('token');
       this.$http.defaults.headers.common['Authorization'] = token;
       this.$http
-        .get(`users?pagenum=${this.pagenum}&pagesize=${this.pagesize}`)
+        .get(`users?pagenum=${this.pagenum}&pagesize=${this.pagesize}&query=${this.searchTxt}`)
         .then((response) => {
           // console.log(response.data);
           // 获取总条数
@@ -134,6 +173,10 @@ export default {
       // 发送请求
       this.pagenum = val;
       // 获取数据,显示在页面
+      this.loadData();
+    },
+    // 点击搜索按钮实现匹配查询
+    handleSearch() {
       this.loadData();
     }
   },

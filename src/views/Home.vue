@@ -19,7 +19,6 @@
           router
           unique-opened
           style="height:100%"
-          default-active="/users"
           class="el-menu-vertical-demo">
           <el-submenu index="1">
             <template slot="title">
