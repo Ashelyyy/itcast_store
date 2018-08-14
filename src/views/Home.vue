@@ -47,15 +47,15 @@
               <i class="el-icon-location"></i>
               <span>商品管理</span>
             </template>
-            <el-menu-item index="/goodsList">
+            <el-menu-item index="/lists">
             <i class="el-icon-menu"></i>
             商品列表
             </el-menu-item>
-            <el-menu-item index="/categories">
+            <el-menu-item index="/params">
             <i class="el-icon-menu"></i>
             分类参数
             </el-menu-item>
-            <el-menu-item index="/goodscategories">
+            <el-menu-item index="/categories">
             <i class="el-icon-menu"></i>
             商品分类
             </el-menu-item>

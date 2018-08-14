@@ -8,6 +8,9 @@ import Home from '@/views/Home.vue';
 import Users from '@/views/users/Users.vue';
 import Rights from '@/views/rights/Right.vue';
 import Roles from '@/views/rights/Roles.vue';
+import Categories from '@/views/goods/Categories.vue';
+import Lists from '@/views/goods/Lists.vue';
+import ListsAdd from '@/views/goods/ListsAdd.vue';
 
 // 注册Router
 Vue.use(Router);
@@ -25,7 +28,10 @@ export default new Router({
       children: [
         {name: 'Users', path: '/users', component: Users},
         {name: 'Rights', path: '/rights', component: Rights},
-        {name: 'Roles', path: '/roles', component: Roles}
+        {name: 'Roles', path: '/roles', component: Roles},
+        {name: 'Categories', path: '/categories', component: Categories},
+        {name: 'Lists', path: '/lists', component: Lists},
+        {name: 'ListsAdd', path: '/lists/add', component: ListsAdd}
 
       ]
     }
