@@ -11,6 +11,7 @@ import Roles from '@/views/rights/Roles.vue';
 import Categories from '@/views/goods/Categories.vue';
 import Lists from '@/views/goods/Lists.vue';
 import ListsAdd from '@/views/goods/ListsAdd.vue';
+import Order from '@/views/order/Order.vue';
 
 // 注册Router
 Vue.use(Router);
@@ -31,7 +32,8 @@ export default new Router({
         {name: 'Roles', path: '/roles', component: Roles},
         {name: 'Categories', path: '/categories', component: Categories},
         {name: 'Lists', path: '/lists', component: Lists},
-        {name: 'ListsAdd', path: '/lists/add', component: ListsAdd}
+        {name: 'ListsAdd', path: '/lists/add', component: ListsAdd},
+        {name: 'Order', path: '/order', component: Order}
 
       ]
     }
